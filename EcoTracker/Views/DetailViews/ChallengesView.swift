@@ -76,7 +76,7 @@ struct ChallengesView: View {
             s = dataManager.Challenges.filter{!($0.completed)}
         }
         else{
-            
+            s = dataManager.Challenges
         }
         
         if(SearchTerms.isEmpty){
