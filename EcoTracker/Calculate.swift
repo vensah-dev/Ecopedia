@@ -26,10 +26,10 @@ struct Calculate: View {
                     .keyboardType(.decimalPad)
                 
                 Toggle("Do You Recycle Metal?", isOn: $recycleAluminium)
-                    .tint(interactableColor)
+                    .tint(.black)
                 
                 Toggle("Do You Recycle Paper?", isOn: $recyclePaper)
-                    .tint(interactableColor)
+                    .tint(.black)
                 
                 Button(){
                     footPrint = CalculateFootprint(mileage: Int(carMileage.value) ?? 0, metal: recycleAluminium, paper: recyclePaper)
@@ -39,7 +39,7 @@ struct Calculate: View {
                 }
                 .padding(15)
                 .foregroundColor(.white)
-                .background(interactableColor)
+                .background(.black)
                 .cornerRadius(22)
                 .padding(25)
                 

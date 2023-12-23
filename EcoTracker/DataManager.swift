@@ -16,13 +16,17 @@ struct Suggestion: Identifiable{
     
 }
 
-struct Challenge: Codable{
+struct Challenge: Codable, Equatable{
     var id = UUID()
-    var title: String
-    var difficulty: String
+    var title: String = ""
+    var difficulty: String = ""
     var description: String = "test"
+    var completed: Bool = false
+
     
 }
+
+
 
 class DataManager: ObservableObject {
     

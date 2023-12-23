@@ -7,12 +7,54 @@
 
 import SwiftUI
 
-struct AllSuggestionsView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
+struct SuggestionsView: View {
+    @ObservedObject var dataManager: DataManager
 
-#Preview {
-    AllSuggestionsView()
+    @State var SearchTerms: String = ""
+    @Environment (\.dismiss) private var dismiss
+    var body: some View {
+        NavigationStack{
+            List{
+                Section{
+                    ForEach(displaySuggestions, id: \.id){suggestion in
+                        NavigationLink {
+                            SuggestionDetailView(suggestion: suggestion)
+                        } label: {
+                            Text(suggestion.title)
+                                .foregroundColor(Color("green"))
+                                .multilineTextAlignment(.leading)
+                                .bold()
+                        }
+                    }
+                }
+            }
+            .searchable(text: $SearchTerms)
+            .navigationTitle("Suggestions")
+            .navigationBarItems(leading:
+                HStack{
+                    Button(){
+                        dismiss()
+                    }label:{
+                        HStack{
+                            Image(systemName: "chevron.left")
+                            Text("Back")
+                        }
+                    }
+                }
+            )
+        }
+    }
+    
+    var displaySuggestions: [Suggestion]{
+        var s: [Suggestion] = []
+        
+        if(SearchTerms.isEmpty){
+            s = dataManager.Suggestions
+        }
+        else{
+            s = dataManager.Suggestions.filter{$0.title.contains(SearchTerms)}
+        }
+        
+        return s
+    }
 }

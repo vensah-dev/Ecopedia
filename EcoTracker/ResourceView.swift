@@ -7,18 +7,19 @@
 
 import SwiftUI
 
-struct ResoruceView: View {
-    @State var suggestion: Suggestion = Suggestions[0]
+struct ResourceView: View {
+    @ObservedObject var dataManager: DataManager
+
     @State var showAllSug: Bool = false
     @State var showAllChal: Bool = false
 
     var body: some View {
         NavigationStack{
             ZStack{
-                Color("ListBackground")
+                Color(UIColor.systemGroupedBackground)
                     .ignoresSafeArea()
                 VStack{
-                    ChallengeView()
+                    ChallengeWidget()
                     
                     List{
                         Section(header: Text("Suggestions")){
@@ -40,20 +41,21 @@ struct ResoruceView: View {
                                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                                     .multilineTextAlignment(.center)
                             }
-                            .fullScreenCover(isPresented: $showAllSug, content:{ SuggestionsView()})
+                            .fullScreenCover(isPresented: $showAllSug){ SuggestionsView(dataManager: dataManager)
+                            }
                         }
                         
                         Section(header: Text("Challenges")){
-                            ForEach(randomChallenges, id: \.id){(challenge: Challenge) in
+                            ForEach(randomChallenges.indices, id: \.self){index in
                                 NavigationLink {
-                                    ChallengeDetailView(challenge: challenge)
+                                    ChallengeDetailView(challenge: $dataManager.Challenges[index])
                                 } label: {
                                     VStack(alignment: .leading){
-                                        Text(challenge.title)
+                                        Text(dataManager.Challenges[index].title)
                                             .foregroundColor(Color("green"))
                                             .bold()
                                         
-                                        Text(challenge.difficulty)
+                                        Text(dataManager.Challenges[index].difficulty)
                                             .multilineTextAlignment(.leading)
                                             .foregroundColor(.secondary)
                                     }
@@ -67,7 +69,7 @@ struct ResoruceView: View {
                                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                                     .multilineTextAlignment(.center)
                             }
-                            .fullScreenCover(isPresented: $showAllChal, content:{ ChallengesView()})
+                            .fullScreenCover(isPresented: $showAllChal, content:{ ChallengesView(dataManager: dataManager)})
                         }
                     }
                     .navigationTitle("Resources")
@@ -81,7 +83,7 @@ struct ResoruceView: View {
         var returnVar: [Challenge] = []
         
         for _ in 0...5{
-            returnVar.append(Challenges[Int.random(in: 0...Challenges.count - 1)])
+            returnVar.append(dataManager.Challenges[Int.random(in: 0...dataManager.Challenges.count - 1)])
         }
         
         return returnVar
@@ -91,14 +93,10 @@ struct ResoruceView: View {
         var returnVar: [Suggestion] = []
         
         for _ in 0...5{
-            returnVar.append(Suggestions[Int.random(in: 0...Suggestions.count - 1)])
+            returnVar.append(dataManager.Suggestions[Int.random(in: 0...dataManager.Suggestions.count - 1)])
         }
         
         return returnVar
     }
     
-}
-
-#Preview {
-    ResoruceView()
 }

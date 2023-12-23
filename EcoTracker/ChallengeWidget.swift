@@ -64,7 +64,7 @@ struct ChallengeWidget: View {
                             }
                             
                             NavigationLink(){
-                                ChallengeDetailView(challenge: challenge)
+                                ChallengeDetailView(challenge: $challenge)
                             }label:{
                                 Image(systemName:"chevron.right")
                                     .font(.system(size: 22, weight: .heavy))

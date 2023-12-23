@@ -8,13 +8,15 @@
 import SwiftUI
 
 struct HomeView: View {
+    @ObservedObject var dataManager = DataManager()
+
     var body: some View {
         NavigationStack{
             List(){
                 NavigationLink{
-                    SuggestionsView()
+                    ResourceView(dataManager: dataManager)
                 }label:{
-                    Label(Suggestions[Int.random(in: 0..<Suggestions.count)].tip, systemImage: "lightbulb.2.fill")
+                    Label(dataManager.Suggestions[Int.random(in: 0..<dataManager.Suggestions.count)].title, systemImage: "lightbulb.2.fill")
                 }
                 
                 NavigationLink{

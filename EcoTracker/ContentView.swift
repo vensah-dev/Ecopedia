@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var dataManager = DataManager()
+
     var body: some View {
         VStack {
             TabView{
@@ -16,12 +18,12 @@ struct ContentView: View {
                         Label("Home", systemImage: "house")
                     }
                 
-                SuggestionsView()
+                ResourceView(dataManager: dataManager)
                     .tabItem(){
-                        Label("Suggestions", systemImage: "lightbulb.2.fill")
+                        Label("Resources", systemImage: "list.clipboard.fill")
                     }
                 
-                Calculate()
+                ProgressScreen(dataManager: dataManager)
                     .tabItem(){
                         Label("Progress", systemImage: "chart.bar.fill")
                     }

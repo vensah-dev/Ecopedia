@@ -8,14 +8,26 @@
 import SwiftUI
 
 struct SuggestionDetailView: View {
+    @StateObject var dataManager = DataManager()
+
     @State var suggestion: Suggestion
     var body: some View {
-        Text(suggestion.tip)
-            .font(.system(size: 30, weight: .bold))
-            .padding(10)
-        
-        Text(suggestion.detail)
-            .font(.system(size: 17, weight: .none))
-            .padding(25)
+        NavigationStack{
+            List{
+                Section{
+                    Text(suggestion.title)
+                        .font(.title)
+                        .bold()
+                        .multilineTextAlignment(.leading)
+                        .listRowBackground(opacity(0))
+                }
+                .navigationTitle("Challenge")
+                
+                Section(header: Text("Description")){
+                    Text(suggestion.detail)
+                        .multilineTextAlignment(.leading)
+                }
+            }
+        }
     }
 }
