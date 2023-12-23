@@ -32,8 +32,8 @@ struct ChallengesView: View {
                             ForEach(displayChallenges.indices, id: \.self){index in
                                 if(selectedFilter >= 0){
                                     if(displayChallenges[index].completed == filters[selectedFilter]){
-                                        NavigationLink {
-                                            ChallengeDetailView(challenge: $dataManager.Challenges[index])
+                                        NavigationLink{
+                                            ChallengeDetailView(dataManager: dataManager, challenge: $dataManager.Challenges[index])
                                         } label: {
                                             VStack(alignment: .leading){
                                                 Text(dataManager.Challenges[index].title)
@@ -48,8 +48,8 @@ struct ChallengesView: View {
                                     }
                                 }
                                 else{
-                                    NavigationLink {
-                                        ChallengeDetailView(challenge: $dataManager.Challenges[index])
+                                    NavigationLink{
+                                        ChallengeDetailView(dataManager: dataManager, challenge: $dataManager.Challenges[index])
                                     } label: {
                                         VStack(alignment: .leading){
                                             Text(dataManager.Challenges[index].title)
@@ -152,7 +152,7 @@ struct ChallengeWidget: View {
                             }
                             
                             NavigationLink(){
-                                ChallengeDetailView(challenge: $challenge)
+                                ChallengeDetailView(dataManager: dataManager, challenge: $challenge)
                             }label:{
                                 Image(systemName:"chevron.right")
                                     .font(.system(size: 22, weight: .heavy))

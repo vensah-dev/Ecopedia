@@ -49,7 +49,7 @@ struct ResourceView: View {
                                 Section(header: Text("Challenges")){
                                     ForEach(randomChallenges.indices, id: \.self){index in
                                         NavigationLink {
-                                            ChallengeDetailView(challenge: $dataManager.Challenges[index])
+                                            ChallengeDetailView(dataManager: dataManager, challenge: $dataManager.Challenges[index])
                                         } label: {
                                             VStack(alignment: .leading){
                                                 Text(dataManager.Challenges[index].title)

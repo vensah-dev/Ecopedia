@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ChallengeDetailView: View {
+    @StateObject var dataManager: DataManager
+    
     @Binding var challenge: Challenge
     @State var showAll: Bool = false
     @Environment(\.dismiss) private var dismiss 
@@ -52,19 +54,23 @@ struct ChallengeDetailView: View {
                 }
                 
                 Section(header: Text("Variants")){
-                    NavigationLink {
-                        ChallengeDetailView(challenge: $challenge)
-                    } label: {
-                        VStack(alignment: .leading){
-                            Text(challenge.title)
-                                .foregroundColor(Color("green"))
-                                .bold()
-                            
-                            Text(challenge.difficulty)
-                                .multilineTextAlignment(.leading)
-                                .foregroundColor(.secondary)
+                    ForEach(dataManager.Challenges.indices, id: \.self){ index in
+                        if(dataManager.Challenges[index].title == challenge.title){
+                            NavigationLink {
+                                ChallengeDetailView(dataManager: dataManager, challenge: $dataManager.Challenges[index])
+                            } label: {
+                                VStack(alignment: .leading){
+                                    Text(dataManager.Challenges[index].title)
+                                        .foregroundColor(Color("green"))
+                                        .bold()
+                                    
+                                    Text(dataManager.Challenges[index].difficulty)
+                                        .multilineTextAlignment(.leading)
+                                        .foregroundColor(.secondary)
+                                }
+                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                            }
                         }
-                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                     }
                 }
             }
