@@ -169,7 +169,7 @@ struct ChallengesWidget: View {
     func setCompletedChallenges(){
         var i = 0
         for x in dataManager.Challenges{
-            if(x.completed){
+            if(x.completed == "Complete"){
                 i += 1
             }
         }

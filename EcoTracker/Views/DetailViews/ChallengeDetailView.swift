@@ -33,9 +33,9 @@ struct ChallengeDetailView: View {
                 }
                 
                 Section(header: Text("Completion")){
-                    if(challenge.completed){
+                    if(challenge.completed == "Complete"){
                         Button(){
-                            challenge.completed = false
+                            challenge.completed = "Incomplete"
                         }label:{
                             Text("Redo")
                                 .foregroundColor(Color.red)
@@ -43,7 +43,7 @@ struct ChallengeDetailView: View {
                     }
                     else{
                         Button(){
-                            challenge.completed = true
+                            challenge.completed = "Complete"
                         }label:{
                             Text("Done")
                                 .foregroundColor(Color("green"))

@@ -20,7 +20,7 @@ struct Challenge: Codable, Equatable{
     var title: String = ""
     var difficulty: String = ""
     var description: String = "test"
-    var completed: Bool = false
+    var completed: String = "Incomplete"
 
     
 }

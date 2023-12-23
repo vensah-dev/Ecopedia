@@ -30,17 +30,36 @@ struct ChallengesView: View {
                     List{
                         Section{
                             ForEach(displayChallenges.indices, id: \.self){index in
-                                NavigationLink {
-                                    ChallengeDetailView(challenge: $dataManager.Challenges[index])
-                                } label: {
-                                    VStack(alignment: .leading){
-                                        Text(dataManager.Challenges[index].title)
-                                            .foregroundColor(Color("green"))
-                                            .bold()
-                                        
-                                        Text(dataManager.Challenges[index].difficulty)
-                                            .multilineTextAlignment(.leading)
-                                            .foregroundColor(.secondary)
+                                if(selectedFilter >= 0){
+                                    if(displayChallenges[index].completed == filters[selectedFilter]){
+                                        NavigationLink {
+                                            ChallengeDetailView(challenge: $dataManager.Challenges[index])
+                                        } label: {
+                                            VStack(alignment: .leading){
+                                                Text(dataManager.Challenges[index].title)
+                                                    .foregroundColor(Color("green"))
+                                                    .bold()
+                                                
+                                                Text(dataManager.Challenges[index].difficulty)
+                                                    .multilineTextAlignment(.leading)
+                                                    .foregroundColor(.secondary)
+                                            }
+                                        }
+                                    }
+                                }
+                                else{
+                                    NavigationLink {
+                                        ChallengeDetailView(challenge: $dataManager.Challenges[index])
+                                    } label: {
+                                        VStack(alignment: .leading){
+                                            Text(dataManager.Challenges[index].title)
+                                                .foregroundColor(Color("green"))
+                                                .bold()
+                                            
+                                            Text(dataManager.Challenges[index].difficulty)
+                                                .multilineTextAlignment(.leading)
+                                                .foregroundColor(.secondary)
+                                        }
                                     }
                                 }
                             }
@@ -49,6 +68,7 @@ struct ChallengesView: View {
                     .searchable(text: $SearchTerms)
                 }
             }
+
             .navigationTitle("Challenges")
             .navigationBarItems(leading:
                 HStack{
@@ -67,23 +87,11 @@ struct ChallengesView: View {
     }
     
     var displayChallenges: [Challenge]{
-        var s: [Challenge] = []
-        
-        if(selectedFilter == 0){
-            s = dataManager.Challenges.filter{$0.completed}
-        }
-        else if(selectedFilter == 1){
-            s = dataManager.Challenges.filter{!($0.completed)}
-        }
-        else{
-            s = dataManager.Challenges
-        }
-        
         if(SearchTerms.isEmpty){
-            return s
+            return dataManager.Challenges
         }
         
-        return s.filter{$0.title.contains(SearchTerms)}
+        return dataManager.Challenges.filter{$0.title.lowercased().contains(SearchTerms.lowercased())}
     }
 }
 
