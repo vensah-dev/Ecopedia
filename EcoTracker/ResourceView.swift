@@ -16,65 +16,80 @@ struct ResourceView: View {
     var body: some View {
         NavigationStack{
             ZStack{
-                Color(UIColor.systemGroupedBackground)
+                Color(UIColor.systemBackground)
                     .ignoresSafeArea()
-                VStack{
+                VStack(alignment: .center){
                     ChallengeWidget()
-                    
-                    List{
-                        Section(header: Text("Suggestions")){
-                            ForEach(randomSuggestions, id: \.id){ suggestion in
-                                NavigationLink {
-                                    SuggestionDetailView(suggestion: suggestion)
-                                } label: {
-                                    Text(suggestion.title)
-                                        .foregroundColor(Color("green"))
-                                        .multilineTextAlignment(.leading)
-                                        .bold()
-                                }
-                            }
-                            
-                            Button(){
-                                showAllSug = true
-                            }label:{
-                                Text("All Suggestions")
-                                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                                    .multilineTextAlignment(.center)
-                            }
-                            .fullScreenCover(isPresented: $showAllSug){ SuggestionsView(dataManager: dataManager)
-                            }
-                        }
-                        
-                        Section(header: Text("Challenges")){
-                            ForEach(randomChallenges.indices, id: \.self){index in
-                                NavigationLink {
-                                    ChallengeDetailView(challenge: $dataManager.Challenges[index])
-                                } label: {
-                                    VStack(alignment: .leading){
-                                        Text(dataManager.Challenges[index].title)
-                                            .foregroundColor(Color("green"))
-                                            .bold()
-                                        
-                                        Text(dataManager.Challenges[index].difficulty)
-                                            .multilineTextAlignment(.leading)
-                                            .foregroundColor(.secondary)
+                    GeometryReader{ G in
+                        ZStack(alignment: .center){
+                            List{
+                                Section(header: Text("Suggestions")){
+                                    ForEach(randomSuggestions, id: \.id){ suggestion in
+                                        NavigationLink {
+                                            SuggestionDetailView(suggestion: suggestion)
+                                        } label: {
+                                            Text(suggestion.title)
+                                                .foregroundColor(Color("green"))
+                                                .multilineTextAlignment(.leading)
+                                                .bold()
+                                        }
+                                    }
+                                    
+                                    Button(){
+                                        showAllSug = true
+                                    }label:{
+                                        Text("All Suggestions")
+                                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                                            .multilineTextAlignment(.center)
+                                    }
+                                    .fullScreenCover(isPresented: $showAllSug){ SuggestionsView(dataManager: dataManager)
                                     }
                                 }
+                                
+                                Section(header: Text("Challenges")){
+                                    ForEach(randomChallenges.indices, id: \.self){index in
+                                        NavigationLink {
+                                            ChallengeDetailView(challenge: $dataManager.Challenges[index])
+                                        } label: {
+                                            VStack(alignment: .leading){
+                                                Text(dataManager.Challenges[index].title)
+                                                    .foregroundColor(Color("green"))
+                                                    .bold()
+                                                
+                                                Text(dataManager.Challenges[index].difficulty)
+                                                    .multilineTextAlignment(.leading)
+                                                    .foregroundColor(.secondary)
+                                            }
+                                        }
+                                    }
+                                    
+                                    Button(){
+                                        showAllChal = true
+                                    }label:{
+                                        Text("All Challenges")
+                                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                                            .multilineTextAlignment(.center)
+                                    }
+                                    .fullScreenCover(isPresented: $showAllChal, content:{ ChallengesView(dataManager: dataManager)})
+                                }
                             }
-                            
-                            Button(){
-                                showAllChal = true
-                            }label:{
-                                Text("All Challenges")
-                                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                                    .multilineTextAlignment(.center)
-                            }
-                            .fullScreenCover(isPresented: $showAllChal, content:{ ChallengesView(dataManager: dataManager)})
+                            .padding([.leading, .trailing], -16)
+                            .frame(maxWidth: G.size.width)
                         }
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .clipShape(
+                            .rect(
+                                topLeadingRadius: 22,
+                                bottomLeadingRadius: 0,
+                                bottomTrailingRadius: 0,
+                                topTrailingRadius: 22
+                            )
+                        )
+                        .padding([.leading, .trailing], 15)
+                        .navigationTitle("Resources")
                     }
-                    .navigationTitle("Resources")
-                    
                 }
+                .frame(maxHeight: .infinity)
             }
         }
     }

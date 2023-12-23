@@ -90,7 +90,3 @@ struct ChallengeWidget: View {
         
     }
 }
-
-#Preview {
-    ChallengeWidget()
-}
