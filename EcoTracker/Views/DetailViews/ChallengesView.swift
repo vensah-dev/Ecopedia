@@ -13,6 +13,7 @@ struct ChallengesView: View {
     @State var SearchTerms: String = ""
     @Environment (\.dismiss) private var dismiss
     
+    @State var selectedFilter = -1
     @State var filters = ["Complete", "Incomplete"]
     
     var body: some View {
@@ -22,7 +23,7 @@ struct ChallengesView: View {
                     .ignoresSafeArea()
                 VStack{
                     
-                    FilterView(filters: filters)
+                    FilterView(selectedFilter: $selectedFilter, filters: filters)
                         .frame(maxHeight: 40)
                         .padding(.horizontal, 20)
                     
@@ -45,10 +46,9 @@ struct ChallengesView: View {
                             }
                         }
                     }
+                    .searchable(text: $SearchTerms)
                 }
-               
             }
-            .searchable(text: $SearchTerms)
             .navigationTitle("Challenges")
             .navigationBarItems(leading:
                 HStack{
@@ -69,14 +69,21 @@ struct ChallengesView: View {
     var displayChallenges: [Challenge]{
         var s: [Challenge] = []
         
-        if(SearchTerms.isEmpty){
-            s = dataManager.Challenges
+        if(selectedFilter == 0){
+            s = dataManager.Challenges.filter{$0.completed}
+        }
+        else if(selectedFilter == 1){
+            s = dataManager.Challenges.filter{!($0.completed)}
         }
         else{
-            s = dataManager.Challenges.filter{$0.title.contains(SearchTerms)}
+            
         }
         
-        return s
+        if(SearchTerms.isEmpty){
+            return s
+        }
+        
+        return s.filter{$0.title.contains(SearchTerms)}
     }
 }
 
@@ -165,7 +172,7 @@ struct ChallengeWidget: View {
 }
 
 struct FilterView: View {
-    @State var selectedFilter = -1
+    @Binding var selectedFilter: Int
     @State var filters: [String]
         
     var body: some View {
@@ -179,7 +186,7 @@ struct FilterView: View {
                     .foregroundColor(selected ? .white : Color.accentColor)
                     .padding(.init(top: 8, leading: 15, bottom: 8, trailing: 15))
                     .background(selected ? Color.accentColor : Color.accentColor.opacity(0.0))
-                    .cornerRadius(10)
+                    .cornerRadius(15)
                     .bold(selected)
             }
             
@@ -198,7 +205,7 @@ struct FilterView: View {
                                 .foregroundColor(selected ? .white : Color.accentColor)
                                 .padding(.init(top: 8, leading: 15, bottom: 8, trailing: 15))
                                 .background(selected ? Color.accentColor : Color.accentColor.opacity(0.0))
-                                .cornerRadius(10)
+                                .cornerRadius(15)
                                 .bold(selected)
                         }
                         .padding(.init(top: 0, leading: 10, bottom: 0, trailing: 10))
