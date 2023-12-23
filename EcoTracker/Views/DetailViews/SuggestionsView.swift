@@ -11,7 +11,7 @@ struct SuggestionsView: View {
     @ObservedObject var dataManager: DataManager
 
     @State var SearchTerms: String = "" 
-    @Environment (\.dismiss) private var dismiss
+    @Environment (\.dismiss) private var dismiss 
     var body: some View {
         NavigationStack{
             List{

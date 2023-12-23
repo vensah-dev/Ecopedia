@@ -10,7 +10,7 @@ import SwiftUI
 struct ChallengeDetailView: View {
     @Binding var challenge: Challenge
     @State var showAll: Bool = false
-    @Environment(\.dismiss) private var dismiss
+    @Environment(\.dismiss) private var dismiss 
     var body: some View { 
         NavigationStack{
             List{

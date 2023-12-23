@@ -12,7 +12,7 @@ struct SuggestionDetailView: View {
 
     @State var suggestion: Suggestion 
     var body: some View {
-        NavigationStack{
+        NavigationStack{ 
             List{
                 Section{
                     Text(suggestion.title)
