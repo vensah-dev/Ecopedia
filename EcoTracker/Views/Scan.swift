@@ -13,7 +13,7 @@ struct Scan: View {
     }
 }
 
-struct Scan_Previews: PreviewProvider {
+struct Scan_Previews: PreviewProvider { 
     static var previews: some View {
         Scan()
     }

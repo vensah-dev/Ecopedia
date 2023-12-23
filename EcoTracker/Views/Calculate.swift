@@ -12,7 +12,7 @@ struct Calculate: View {
     @State var showScore: Double = 0.0
     @ObservedObject var carMileage = NumbersOnly()
     @State var recycleAluminium: Bool = false
-    @State var recyclePaper: Bool = false
+    @State var recyclePaper: Bool = false 
     
     var body: some View {
         NavigationView{

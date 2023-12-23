@@ -12,7 +12,7 @@ struct ChallengeWidget: View {
 
     @State var challenge = Challenge()
     
-    var body: some View {
+    var body: some View { 
         ZStack(){
             Color.accentColor
                 VStack{

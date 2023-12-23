@@ -13,7 +13,7 @@ struct ProgressScreen: View {
     @State var targetScore: Int = 200
     @State var currentScore: Int = 496
 
-    var body: some View {
+    var body: some View { 
         NavigationStack{
             ScrollView(showsIndicators: false){
                 VStack(spacing: 15){

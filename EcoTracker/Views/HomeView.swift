@@ -11,7 +11,7 @@ struct HomeView: View {
     @ObservedObject var dataManager = DataManager()
 
     var body: some View {
-        NavigationStack{
+        NavigationStack{ 
             List(){
                 NavigationLink{
                     ResourceView(dataManager: dataManager)

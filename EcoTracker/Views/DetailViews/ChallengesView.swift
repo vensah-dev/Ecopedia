@@ -12,7 +12,7 @@ struct ChallengesView: View {
 
     @State var SearchTerms: String = ""
     @Environment (\.dismiss) private var dismiss
-    var body: some View {
+    var body: some View { 
         NavigationStack{
             List{
                 Section{

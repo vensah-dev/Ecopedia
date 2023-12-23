@@ -13,7 +13,7 @@ struct ResourceView: View {
     @State var showAllSug: Bool = false
     @State var showAllChal: Bool = false
 
-    var body: some View {
+    var body: some View { 
         NavigationStack{
             ZStack{
                 Color(UIColor.systemBackground)

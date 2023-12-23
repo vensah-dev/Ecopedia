@@ -12,7 +12,7 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
-            TabView{
+            TabView{ 
                 HomeView()
                     .tabItem(){
                         Label("Home", systemImage: "house")

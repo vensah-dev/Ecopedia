@@ -10,7 +10,7 @@ import SwiftUI
 struct SuggestionDetailView: View {
     @StateObject var dataManager = DataManager()
 
-    @State var suggestion: Suggestion
+    @State var suggestion: Suggestion 
     var body: some View {
         NavigationStack{
             List{

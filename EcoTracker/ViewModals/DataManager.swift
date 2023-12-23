@@ -12,7 +12,7 @@ struct Suggestion: Identifiable{
     
     var id = UUID()
     var title: String
-    var detail: String = "test"
+    var detail: String = "test" 
     
 }
 
