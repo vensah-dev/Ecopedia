@@ -159,7 +159,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C8B641F72AB677640052F572 /* Build configuration list for PBXProject "EcoTracker" */;
+			buildConfigurationList = C8B641F72AB677640052F572 /* Build configuration list for PBXProject "Ecopedia" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -394,7 +394,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C8B641F72AB677640052F572 /* Build configuration list for PBXProject "EcoTracker" */ = {
+		C8B641F72AB677640052F572 /* Build configuration list for PBXProject "Ecopedia" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C8B642082AB677670052F572 /* Debug */,

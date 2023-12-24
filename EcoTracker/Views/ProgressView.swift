@@ -122,51 +122,56 @@ struct CompletedChallengesWidget: View {
         GeometryReader{ g in
             ZStack{
                 Color.accentColor
-
-                VStack(alignment: .center){
-                    Text("Complete Challenges")
-                        .font(.system(size: 31, weight: .heavy, design: .rounded))
-                        .minimumScaleFactor(0.8)
-                        .offset(y: 30)
-                    
-                    HStack(alignment: .center){
-                        ZStack(alignment: .leading){
-                            Rectangle()
-                                .fill(Color.black.opacity(0.1))
-                                .frame(width: .infinity, height: 30)
-                            
-                            let fillWidth = (g.size.width-100)*CGFloat(completedChallengesPercent)
-                            
-                            Rectangle()
-                                .fill(Color("green"))
-                                .frame(width: fillWidth, height: 30)
-                            
-                            HStack{
-                                Text(String(completedChallenges) + "/" + String(dataManager.Challenges.count))
-                                    .foregroundColor(Color.black)
-                                    .opacity(0.5)
-                                    .font(.system(size: 18, weight: .medium, design: .rounded))
+                ZStack{
+                    VStack(alignment: .center){
+                        Text("Complete Challenges")
+                            .font(.system(size: 36, weight: .heavy, design: .rounded))
+                            .minimumScaleFactor(0.7)
+                            .padding(.bottom, -5)
+                        ZStack{
+                            ZStack(alignment: .leading){
+                                Rectangle()
+                                    .fill(Color.black.opacity(0.1))
+                                    .frame(width: .infinity, height: 30)
                                 
+                                let fillWidth = (g.size.width-70)*CGFloat(completedChallengesPercent)
+                                
+                                Rectangle()
+                                    .fill(Color("green"))
+                                    .frame(width: fillWidth, height: 30)
                             }
                             .clipShape(RoundedRectangle(cornerRadius: 100))
-                            .frame(maxWidth: .infinity, maxHeight: 30)
+                            .frame(maxWidth: .infinity, maxHeight: 30, alignment: .center)
                             
-
+                            Text(String(completedChallenges) + "/" + String(dataManager.Challenges.count))
+                                .foregroundColor(Color.black)
+                                .opacity(0.5)
+                                .font(.system(size: 18, weight: .medium, design: .rounded))
                             
+                            HStack(){
+                                
+                                VStack(alignment: .trailing){
+                                    Image("Tick")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 55, height: 55, alignment: .trailing)
+                                        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0.0, y: 0.0)
+                                        .offset(x: 5)
+                                }
+                                
+                            }
+                            .frame(maxWidth: .infinity, alignment: .trailing)
                         }
-                        .clipShape(RoundedRectangle(cornerRadius: 100))
-                        .frame(maxWidth: .infinity, maxHeight: 30, alignment: .center)
-                        .padding(.horizontal)
+                        
+                        Spacer(minLength: 100)
+                        
                     }
                     .frame(maxWidth: .infinity, alignment: .center)
-                    .offset(y: 15)
-
-                    Spacer(minLength: 80)
-
+                    
                 }
-                .offset(y: 15)
-                .frame(maxWidth: .infinity, alignment: .center)
+                .offset(y: 55)
 
+                .padding(.horizontal)
 
             }
             .frame(maxWidth: .infinity, maxHeight: 100)
@@ -187,7 +192,7 @@ struct CompletedChallengesWidget: View {
             }
         }
         
-        completedChallenges = i
+        completedChallenges = 30
     }
     
     func setCompletedChallengesPercent(){
