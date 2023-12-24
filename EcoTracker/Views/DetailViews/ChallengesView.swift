@@ -166,8 +166,8 @@ struct ChallengeWidget: View {
                 }
         }
         .frame(maxWidth: .infinity, maxHeight: 160)
-        .cornerRadius(22)
-        .padding([.trailing, .leading, .top])
+        .cornerRadius(15)
+        .padding(.top)
         .onAppear(){
             setChallenge()
         }

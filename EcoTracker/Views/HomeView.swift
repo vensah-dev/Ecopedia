@@ -12,24 +12,32 @@ struct HomeView: View {
 
     var body: some View {
         NavigationStack{ 
-            List(){
-                NavigationLink{
-                    ResourceView(dataManager: dataManager)
-                }label:{
-                    Label(dataManager.Suggestions[Int.random(in: 0..<dataManager.Suggestions.count)].title, systemImage: "lightbulb.2.fill")
+            
+            ZStack{
+                Color(UIColor.systemGroupedBackground)
+                    .ignoresSafeArea()
+                VStack{
+                    List(){
+                        NavigationLink{
+                            ResourceView(dataManager: dataManager)
+                        }label:{
+                            Label(dataManager.Suggestions[Int.random(in: 0..<dataManager.Suggestions.count)].title, systemImage: "lightbulb.2.fill")
+                        }
+                        
+                        NavigationLink{
+                            Calculate()
+                        }label:{
+                            Label("Find out your crabon footprint score now!", systemImage: "list.clipboard.fill")
+                        }
+                        
+                        NavigationLink{
+                            Scan()
+                        }label:{
+                            Label("Find out if an item is recyclable using the dictionary!", systemImage: "camera.fill")
+                        }
+                    }
                 }
-                
-                NavigationLink{
-                    Calculate()
-                }label:{
-                    Label("Find out your crabon footprint score now!", systemImage: "list.clipboard.fill")
-                }
-                
-                NavigationLink{
-                    Scan()
-                }label:{
-                    Label("Find out if an item is recyclable using the dictionary!", systemImage: "camera.fill")
-                }
+
             }
             .navigationTitle("Home")
         }

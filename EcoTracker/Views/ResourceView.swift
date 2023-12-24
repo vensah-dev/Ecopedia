@@ -16,7 +16,7 @@ struct ResourceView: View {
     var body: some View { 
         NavigationStack{
             ZStack{
-                Color(UIColor.systemBackground)
+                Color(UIColor.systemGroupedBackground)
                     .ignoresSafeArea()
                 VStack(alignment: .center){
                     ChallengeWidget()
@@ -79,17 +79,18 @@ struct ResourceView: View {
                         .frame(maxWidth: .infinity, alignment: .center)
                         .clipShape(
                             .rect(
-                                topLeadingRadius: 22,
+                                topLeadingRadius: 15,
                                 bottomLeadingRadius: 0,
                                 bottomTrailingRadius: 0,
-                                topTrailingRadius: 22
+                                topTrailingRadius: 15
                             )
                         )
-                        .padding([.leading, .trailing], 15)
                         .navigationTitle("Resources")
                     }
                 }
                 .frame(maxHeight: .infinity)
+                .padding(.horizontal, 20)
+
             }
         }
     }
