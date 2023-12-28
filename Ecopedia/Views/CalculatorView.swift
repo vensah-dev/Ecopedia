@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Calculate: View {
+struct CalculatorView: View {
     @State var footPrint: Double = 0.0
     @State var showScore: Double = 0.0
     @ObservedObject var carMileage = NumbersOnly()
@@ -83,8 +83,25 @@ class NumbersOnly: ObservableObject {
     }
 }
 
-struct Calculate_Previews: PreviewProvider {
-    static var previews: some View {
-        Calculate()
+
+struct UtilitiesView: View {
+    var body: some View {
+        Text(" ")
     }
+}
+
+struct TransportView: View {
+    var body: some View {
+        Text(" ")
+    }
+}
+
+struct RecycleView: View {
+    var body: some View {
+        Text(" ")
+    }
+}
+
+#Preview{
+    CalculatorView()
 }
