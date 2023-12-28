@@ -6,99 +6,250 @@
 //
 
 import SwiftUI
+import UIKit
+
+struct VisualEffectView: UIViewRepresentable {
+    var effect: UIVisualEffect?
+    func makeUIView(context: UIViewRepresentableContext<Self>) -> UIVisualEffectView { UIVisualEffectView() }
+    func updateUIView(_ uiView: UIVisualEffectView, context: UIViewRepresentableContext<Self>) { uiView.effect = effect }
+}
+
+struct PlaceHolderWidget: View {
+    @State var title: String
+    var body: some View {
+        ZStack{
+            Color.accentColor
+            VStack{
+                Text(title)
+                    .font(.system(size: 32, weight: .black, design: .rounded))
+                    .foregroundColor(.white)
+                
+                Text("Work in progress")
+                    .font(.system(size: 20, weight: .bold, design: .rounded))
+                    .foregroundColor(.white)
+            }
+        }
+        .clipShape(RoundedRectangle(cornerRadius: 15))
+        .frame(maxWidth: .infinity, minHeight: 100, alignment: .center)
+        .padding(.horizontal, 20)
+
+    }
+}
 
 struct CalculatorView: View {
-    @State var footPrint: Double = 0.0
-    @State var showScore: Double = 0.0
-    @ObservedObject var carMileage = NumbersOnly()
-    @State var recycleAluminium: Bool = false
-    @State var recyclePaper: Bool = false 
-    
     var body: some View {
         NavigationView{
-            VStack(){
-                Text("Calculate Footprint")
-                    .font(.system(size: 36, weight: .bold))
-                    .padding(.init(top: 0, leading: 0, bottom: 25, trailing: 0))
-                
-                TextField("Enter car mileage", text: $carMileage.value)
-                    .accessibilityLabel("Car Mileage")
-                    .keyboardType(.decimalPad)
-                
-                Toggle("Do You Recycle Metal?", isOn: $recycleAluminium)
-                    .tint(.black)
-                
-                Toggle("Do You Recycle Paper?", isOn: $recyclePaper)
-                    .tint(.black)
-                
-                Button(){
-                    footPrint = CalculateFootprint(mileage: Int(carMileage.value) ?? 0, metal: recycleAluminium, paper: recyclePaper)
-                    showScore = 1.0
-                }label: {
-                    Text("Calculate")
-                }
-                .padding(15)
-                .foregroundColor(.white)
-                .background(.black)
-                .cornerRadius(22)
-                .padding(25)
-                
-                Text("Score:")
-                    .font(.system(size: 24, weight: .bold))
-                    .opacity(showScore)
-                    .padding()
-                
-                Text(String(footPrint))
-                    .opacity(showScore)
-                    .padding()
-            }
+            CalculatorFormView()
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-            .padding(30)
+            .onTapGesture {
+                hideKeyboard()
+            }
+            .navigationTitle("Calculator")
+            .navigationBarTitleDisplayMode(.large)
         }
     }
 }
 
-func CalculateFootprint(mileage: Int, metal: Bool, paper: Bool ) -> Double{
-    var footprint: Double = Double(mileage) * 0.79
+func Numberify(value: String) -> Double{
+    Double(value.filter {$0.isNumber}) ?? 0.0
+}
+
+func CalculateFootprint(data: CalculatorData) -> Double{
+    var footprint: Double = Double(Numberify(value: data.ElectrictyBill)) * 105
+    footprint += Double(Numberify(value: data.GasBill)) * 105
     
-    if(!metal){
+    footprint += Double(Numberify(value: data.carMileage)) * 0.79
+    footprint += Double(Numberify(value: data.FlightsUnder4)) * 1100
+    footprint += Double(Numberify(value: data.FlightsOver4)) * 4400
+            
+    if(!data.recycleAluminium){
         footprint += 166
     }
-    if(!paper){
+    if(!data.recyclePaper){
         footprint += 184
     }
     
     return footprint
 }
 
-class NumbersOnly: ObservableObject {
-    @Published var value = "" {
-        didSet {
-            let filtered = value.filter { $0.isNumber }
+#if canImport(UIKit)
+extension View {
+    func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+}
+#endif
+
+struct ScoreView: View {
+    @Environment (\.dismiss) var dismiss
+    
+    @State var footPrint: Double = 0.0
+    @State var ShowGuide: Bool = false
+    
+    var body: some View {
+        ZStack{
+            Color.accentColor
+                .ignoresSafeArea()
+
             
-            if value != filtered {
-                value = filtered
+            VStack{
+                Text(String(footPrint))
+                    .font(.system(size: 48, weight: .heavy, design: .rounded))
+
+                
+                Button(){
+                    dismiss()
+                } label:{
+                    ZStack{
+                        VisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
+                        Text("Exit")
+                            .foregroundColor(Color("green"))
+                    }
+                    .clipShape(RoundedRectangle(cornerRadius: 15))
+                    .frame(width: 120, height: 50)
+                    .padding(.horizontal)
+                }
+
             }
         }
     }
 }
 
+struct CalculatorFormView: View {
+    @Environment(\.presentationMode) var presentationMode
+    @State var dismiss: Bool = false
 
-struct UtilitiesView: View {
+    @State var showScore: Bool = false
+    
+    @State var electrictyBill: String = ""
+    @State var gasBill: String = ""
+    
+    @State var carMileage: String = ""
+    @State var flightsUnder4: String = ""
+    @State var flightsOver4: String = ""
+    
+    @State var recycleAluminium: Bool = false
+    @State var recyclePaper: Bool = false
+    
     var body: some View {
-        Text(" ")
+        ZStack{
+            Color(UIColor.systemGroupedBackground)
+                .ignoresSafeArea()
+            VStack{
+                Form{
+                    Section(header: Text("Utilities")){
+                        HStack{
+                            Text("Electricity Bill")
+                                .font(.system(size: 20))
+                            
+                            Spacer()
+                            
+                            TextField("Enter electricity bill", text: $electrictyBill, onCommit:{hideKeyboard()})
+                                .keyboardType(.decimalPad)
+                                .frame(maxWidth: 150, alignment: .trailing)
+                        }
+                        
+                        HStack{
+                            Text("Gas Bill")
+                                .font(.system(size: 20))
+                            
+                            
+                            Spacer()
+                            
+                            TextField("Enter gas bill", text: $gasBill, onCommit:{hideKeyboard()})
+                                .keyboardType(.decimalPad)
+                                .frame(maxWidth: 150, alignment: .trailing)
+                            
+                        }
+                    }
+                    
+                    Section(header: Text("Transport")){
+                        HStack{
+                            Text("Car Mileage")
+                                .font(.system(size: 20))
+                            
+                            
+                            Spacer()
+                            
+                            
+                            TextField("Enter car mileage", text: $carMileage, onCommit:{hideKeyboard()})
+                                .keyboardType(.decimalPad)
+                                .frame(maxWidth: 150, alignment: .trailing)
+                            
+                        }
+                        
+                        HStack{
+                            Text("Flights taken under 4 hours")
+                                .font(.system(size: 20))
+                            
+                            
+                            Spacer()
+                            
+                            
+                            TextField("Enter car mileage", text: $flightsUnder4, onCommit:{hideKeyboard()})
+                                .keyboardType(.decimalPad)
+                                .frame(maxWidth: 150, alignment: .trailing)
+                            
+                        }
+                        
+                        HStack{
+                            Text("Flights taken over 4 hours")
+                                .font(.system(size: 20))
+                            
+                            
+                            Spacer()
+                            
+                            
+                            TextField("Enter car mileage", text: $flightsOver4, onCommit:{hideKeyboard()})
+                                .keyboardType(.decimalPad)
+                                .frame(maxWidth: 150, alignment: .trailing)
+                            
+                        }
+                    }
+                    
+                    Section(header: Text("Recycling")){
+                        Toggle("Do you recycle metal?", isOn: $recycleAluminium)
+                            .font(.system(size: 20))
+                            .tint(.accentColor)
+                        
+                        
+                        Toggle("Do you recycle metal?", isOn: $recyclePaper)
+                            .font(.system(size: 20))
+                            .tint(.accentColor)
+                    }
+                }
+                
+                Button(){
+                    showScore = true
+                } label:{
+                    ZStack{
+                        VisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
+                        Text("Calculate")
+                            .foregroundColor(Color("green"))
+                    }
+                    .clipShape(RoundedRectangle(cornerRadius: 15))
+                    .frame(width: 120, height: 50)
+                    .padding(.horizontal)
+
+
+                }
+                .fullScreenCover(isPresented: $showScore){
+                    ScoreView(footPrint: CalculateFootprint(data: CalculatorData(ElectrictyBill: electrictyBill, GasBill: gasBill, carMileage: carMileage, FlightsUnder4: flightsUnder4, FlightsOver4: flightsOver4, recycleAluminium: recycleAluminium, recyclePaper: recyclePaper)))
+                }
+                .disabled(isFormEmpty)
+            }
+        }
     }
-}
-
-struct TransportView: View {
-    var body: some View {
-        Text(" ")
+    
+    func justDIMISS(){
+        self.presentationMode.wrappedValue.dismiss()
     }
-}
-
-struct RecycleView: View {
-    var body: some View {
-        Text(" ")
+    
+    var isFormEmpty: Bool{
+        if(electrictyBill.isEmpty || gasBill.isEmpty || carMileage.isEmpty || flightsOver4.isEmpty || flightsUnder4.isEmpty){
+            return true
+        }
+        return false
     }
 }
 

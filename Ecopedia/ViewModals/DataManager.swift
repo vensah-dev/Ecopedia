@@ -110,8 +110,6 @@ class DataManager: ObservableObject {
 
     ]
     
-    
-    //save Challenges
     @Published public var Challenges: [Challenge] =  [
         // Challenge 1: Reduce Plastic Waste
         Challenge(title: "Reduce Plastic Waste", difficulty: "Beginner",
@@ -400,8 +398,10 @@ class DataManager: ObservableObject {
         
     init() {
         loadChallenges()
+        loadProfile()
     }
     
+    //save Challenges
     func getChalllengesArchiveURL() -> URL {
         let plistName = "Challenges.plist"
         let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
@@ -423,6 +423,37 @@ class DataManager: ObservableObject {
         if let retrievedChallengeData = try? Data(contentsOf: archiveURL),
             let ChallengesDecoded = try? propertyListDecoder.decode([Challenge].self, from: retrievedChallengeData) {
             Challenges = ChallengesDecoded
+        }
+    }
+    
+    //Profile
+    @Published public var Profile: ProfileData = ProfileData(userName: "John", streak: 0, pfpIndex: -1){
+        didSet {
+            saveProfile()
+        }
+    }
+    
+    func getProfileArchiveURL() -> URL {
+        let plistName = "Profile.plist"
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        
+        return documentsDirectory.appendingPathComponent(plistName)
+    }
+    
+    func saveProfile() {
+        let archiveURL = getProfileArchiveURL()
+        let propertyListEncoder = PropertyListEncoder()
+        let encodedChallenges = try? propertyListEncoder.encode(Profile)
+        try? encodedChallenges?.write(to: archiveURL, options: .noFileProtection)
+    }
+    
+    func loadProfile() {
+        let archiveURL = getProfileArchiveURL()
+        let propertyListDecoder = PropertyListDecoder()
+                
+        if let retrievedChallengeData = try? Data(contentsOf: archiveURL),
+            let ChallengesDecoded = try? propertyListDecoder.decode(ProfileData.self, from: retrievedChallengeData) {
+            Profile = ChallengesDecoded
         }
     }
 }

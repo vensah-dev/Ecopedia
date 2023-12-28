@@ -17,7 +17,8 @@
 		C8B642072AB677670052F572 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C8B642062AB677670052F572 /* Preview Assets.xcassets */; };
 		C8B6420E2AB6D9520052F572 /* Scan.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B6420D2AB6D9520052F572 /* Scan.swift */; };
 		C8B642102AB6D96D0052F572 /* ResourceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B6420F2AB6D96D0052F572 /* ResourceView.swift */; };
-		C8B642122AB6D9910052F572 /* Calculate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B642112AB6D9910052F572 /* Calculate.swift */; };
+		C8B642122AB6D9910052F572 /* CalculatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B642112AB6D9910052F572 /* CalculatorView.swift */; };
+		C8D04A352B3B223C00D7AB2A /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D04A342B3B223C00D7AB2A /* ProfileView.swift */; };
 		C8E31BF92B344758002F0A2A /* SuggestionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E31BF82B344758002F0A2A /* SuggestionsView.swift */; };
 		C8E31BFB2B344C6C002F0A2A /* ChallengesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E31BFA2B344C6C002F0A2A /* ChallengesView.swift */; };
 		C8E9C1C82B3466DD0022C2FA /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E9C1C72B3466DD0022C2FA /* ProgressView.swift */; };
@@ -36,7 +37,8 @@
 		C8B642062AB677670052F572 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		C8B6420D2AB6D9520052F572 /* Scan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scan.swift; sourceTree = "<group>"; };
 		C8B6420F2AB6D96D0052F572 /* ResourceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceView.swift; sourceTree = "<group>"; };
-		C8B642112AB6D9910052F572 /* Calculate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calculate.swift; sourceTree = "<group>"; };
+		C8B642112AB6D9910052F572 /* CalculatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorView.swift; sourceTree = "<group>"; };
+		C8D04A342B3B223C00D7AB2A /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		C8E31BF82B344758002F0A2A /* SuggestionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsView.swift; sourceTree = "<group>"; };
 		C8E31BFA2B344C6C002F0A2A /* ChallengesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengesView.swift; sourceTree = "<group>"; };
 		C8E9C1C72B3466DD0022C2FA /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
@@ -57,7 +59,7 @@
 		C8B641F32AB677640052F572 = {
 			isa = PBXGroup;
 			children = (
-				C8B641FE2AB677640052F572 /* EcoTracker */,
+				C8B641FE2AB677640052F572 /* Ecopedia */,
 				C8B641FD2AB677640052F572 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -70,7 +72,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C8B641FE2AB677640052F572 /* EcoTracker */ = {
+		C8B641FE2AB677640052F572 /* Ecopedia */ = {
 			isa = PBXGroup;
 			children = (
 				C8B641FF2AB677640052F572 /* EcoTrackerApp.swift */,
@@ -79,7 +81,7 @@
 				C8B642032AB677670052F572 /* Assets.xcassets */,
 				C8B642052AB677670052F572 /* Preview Content */,
 			);
-			path = EcoTracker;
+			path = Ecopedia;
 			sourceTree = "<group>";
 		};
 		C8B642052AB677670052F572 /* Preview Content */ = {
@@ -108,8 +110,9 @@
 				C8A135B62AB71AE30015E356 /* HomeView.swift */,
 				C8B6420F2AB6D96D0052F572 /* ResourceView.swift */,
 				C8E9C1C72B3466DD0022C2FA /* ProgressView.swift */,
+				C8D04A342B3B223C00D7AB2A /* ProfileView.swift */,
 				C8B6420D2AB6D9520052F572 /* Scan.swift */,
-				C8B642112AB6D9910052F572 /* Calculate.swift */,
+				C8B642112AB6D9910052F572 /* CalculatorView.swift */,
 				C8FF6D2F2B36B1F700AB1DFB /* DetailViews */,
 			);
 			path = Views;
@@ -199,13 +202,14 @@
 				C8B642102AB6D96D0052F572 /* ResourceView.swift in Sources */,
 				C8B642002AB677640052F572 /* EcoTrackerApp.swift in Sources */,
 				C899214C2B33E96800E244FF /* ChallengeDetailView.swift in Sources */,
-				C8B642122AB6D9910052F572 /* Calculate.swift in Sources */,
+				C8B642122AB6D9910052F572 /* CalculatorView.swift in Sources */,
 				C8A135B52AB714CD0015E356 /* SuggestionDetailView.swift in Sources */,
 				C8A135B72AB71AE30015E356 /* HomeView.swift in Sources */,
 				C8A135B32AB70FC60015E356 /* DataManager.swift in Sources */,
 				C8FF6D332B36CA0C00AB1DFB /* Structs.swift in Sources */,
 				C8E31BF92B344758002F0A2A /* SuggestionsView.swift in Sources */,
 				C8B6420E2AB6D9520052F572 /* Scan.swift in Sources */,
+				C8D04A352B3B223C00D7AB2A /* ProfileView.swift in Sources */,
 				C8E9C1C82B3466DD0022C2FA /* ProgressView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -334,7 +338,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"EcoTracker/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Ecopedia/Preview Content\"";
 				DEVELOPMENT_TEAM = 3W9U482L92;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -366,7 +370,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"EcoTracker/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Ecopedia/Preview Content\"";
 				DEVELOPMENT_TEAM = 3W9U482L92;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;

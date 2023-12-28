@@ -13,7 +13,7 @@ struct ResourceView: View {
     @State var showAllSug: Bool = false
     @State var showAllChal: Bool = false
 
-    var body: some View { 
+    var body: some View {
         NavigationStack{
             ZStack{
                 Color(UIColor.systemGroupedBackground)
@@ -73,6 +73,7 @@ struct ResourceView: View {
                                     .fullScreenCover(isPresented: $showAllChal, content:{ ChallengesView(dataManager: dataManager)})
                                 }
                             }
+                            .scrollIndicators(.hidden)
                             .padding([.leading, .trailing], -16)
                             .frame(maxWidth: G.size.width)
                         }

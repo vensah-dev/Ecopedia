@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct Suggestion: Identifiable{
     
@@ -22,5 +23,28 @@ struct Challenge: Codable, Equatable{
     var description: String = "test"
     var completed: String = "Incomplete"
 
+    
+}
+
+struct ProfileData: Codable{
+    var id = UUID()
+    var userName: String = ""
+    var streak: Int = 0
+    var pfpIndex: Int = -1
+    
+}
+
+struct CalculatorData{
+    var id = UUID()
+
+    var ElectrictyBill: String = ""
+    var GasBill: String
+    
+    var carMileage: String
+    var FlightsUnder4: String
+    var FlightsOver4: String
+    
+    var recycleAluminium: Bool
+    var recyclePaper: Bool
     
 }

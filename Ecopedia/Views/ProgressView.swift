@@ -6,28 +6,28 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct ProgressScreen: View {
-    @ObservedObject var dataManager: DataManager
+    @StateObject var dataManager: DataManager
 
     @State var targetScore: Int = 200
     @State var currentScore: Int = 496
-
+    
     var body: some View {
-        NavigationStack{
+        NavigationView{
             ScrollView(showsIndicators: false){
                 VStack(spacing: 15){
 
                     HStack(spacing: 15){
                         FootprintWidget(title: "Current", value: currentScore)
                         FootprintWidget(title: "Target", value: targetScore)
-
                     }
 
                     
                     //Calculator
-                    Button(){
-                        print("calculator")
+                    NavigationLink(){
+                        CalculatorView()
                     }label:{
                         Image("Calculator")
                             .resizable()
@@ -52,7 +52,7 @@ struct ProgressScreen: View {
                     CompletedChallengesWidget()
 
                     
-                    Spacer(minLength: 80)
+                    Spacer(minLength: 180)
 
                 }
                 .padding(.top, 15)
@@ -60,7 +60,27 @@ struct ProgressScreen: View {
 
             }
             .navigationTitle("Progress")
+            .toolbar{
+                ProfileIcon(dataManager: dataManager)
+                    .padding(.bottom, -100)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .trailing)
+            .padding(.bottom, -100)
+        }
+    }
+}
 
+struct ProfileIcon: View {
+    @StateObject var dataManager: DataManager
+    var body: some View {
+        NavigationLink {
+            ProfileView(dataManager: dataManager)
+        } label: {
+            Image(systemName: "person.crop.circle.fill")
+                .resizable()
+                .scaledToFit()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .clipShape(Circle())
         }
     }
 }
@@ -89,7 +109,7 @@ struct FootprintWidget: View {
                 ZStack{
                     
                     Circle()
-                        .fill(Color("green"))
+                        .fill(Color("green").opacity(0.7))
                         .frame(width: 315, height: 325)
                         .padding(.top, 110)
                         .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0.0, y: 0.0)
@@ -100,13 +120,13 @@ struct FootprintWidget: View {
                         .foregroundColor(Color.accentColor)
 
                 }
-                .clipShape(RoundedRectangle(cornerRadius: 15))
+                .clipShape(RoundedRectangle(cornerRadius: 18))
                 .frame(width: 60, height: 0)
             }
             .padding(.top, 80)
             .padding(.horizontal, -20)
         }
-        .clipShape(RoundedRectangle(cornerRadius: 15))
+        .clipShape(RoundedRectangle(cornerRadius: 18))
         .frame(maxWidth: .infinity, maxHeight: 210, alignment: .center)
 
     }
@@ -170,12 +190,11 @@ struct CompletedChallengesWidget: View {
                     
                 }
                 .offset(y: 55)
-
                 .padding(.horizontal)
 
             }
             .frame(maxWidth: .infinity, maxHeight: 100)
-            .clipShape(RoundedRectangle(cornerRadius: 15))
+            .clipShape(RoundedRectangle(cornerRadius: 18))
         }
         .onAppear{
             setCompletedChallenges()
@@ -192,7 +211,7 @@ struct CompletedChallengesWidget: View {
             }
         }
         
-        completedChallenges = 30
+        completedChallenges = i
     }
     
     func setCompletedChallengesPercent(){
