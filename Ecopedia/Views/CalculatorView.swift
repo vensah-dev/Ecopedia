@@ -241,10 +241,6 @@ struct CalculatorFormView: View {
         }
     }
     
-    func justDIMISS(){
-        self.presentationMode.wrappedValue.dismiss()
-    }
-    
     var isFormEmpty: Bool{
         if(electrictyBill.isEmpty || gasBill.isEmpty || carMileage.isEmpty || flightsOver4.isEmpty || flightsUnder4.isEmpty){
             return true

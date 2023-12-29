@@ -30,6 +30,8 @@ struct ProfileData: Codable{
     var id = UUID()
     var userName: String = ""
     var streak: Int = 0
+    var score: Int = 0
+    var target: Int = 0
     var pfpIndex: Int = -1
     
 }

@@ -62,25 +62,9 @@ struct ProgressScreen: View {
             .navigationTitle("Progress")
             .toolbar{
                 ProfileIcon(dataManager: dataManager)
-                    .padding(.bottom, -100)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .trailing)
             .padding(.bottom, -100)
-        }
-    }
-}
-
-struct ProfileIcon: View {
-    @StateObject var dataManager: DataManager
-    var body: some View {
-        NavigationLink {
-            ProfileView(dataManager: dataManager)
-        } label: {
-            Image(systemName: "person.crop.circle.fill")
-                .resizable()
-                .scaledToFit()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .clipShape(Circle())
         }
     }
 }
@@ -152,7 +136,6 @@ struct CompletedChallengesWidget: View {
                             ZStack(alignment: .leading){
                                 Rectangle()
                                     .fill(Color.black.opacity(0.1))
-                                    .frame(width: .infinity, height: 30)
                                 
                                 let fillWidth = (g.size.width-70)*CGFloat(completedChallengesPercent)
                                 
