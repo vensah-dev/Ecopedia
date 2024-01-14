@@ -48,19 +48,7 @@ struct ResourceView: View {
                                 
                                 Section(header: Text("Challenges")){
                                     ForEach(randomChallenges.indices, id: \.self){index in
-                                        NavigationLink {
-                                            ChallengeDetailView(dataManager: dataManager, challenge: $dataManager.Challenges[index])
-                                        } label: {
-                                            VStack(alignment: .leading){
-                                                Text(dataManager.Challenges[index].title)
-                                                    .foregroundColor(Color("green"))
-                                                    .bold()
-                                                
-                                                Text(dataManager.Challenges[index].difficulty)
-                                                    .multilineTextAlignment(.leading)
-                                                    .foregroundColor(.secondary)
-                                            }
-                                        }
+                                        ChallengesListItem(dataManager: dataManager, index: index)
                                     }
                                     
                                     Button(){

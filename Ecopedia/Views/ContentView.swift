@@ -12,8 +12,8 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
-            TabView{ 
-                HomeView()
+            TabView{
+                HomeView(dataManager: dataManager)
                     .tabItem(){
                         Label("Home", systemImage: "house")
                     }
@@ -25,6 +25,7 @@ struct ContentView: View {
                 
                 ProgressScreen(dataManager: dataManager)
                     .tabItem(){
+                        
                         Label("Progress", systemImage: "chart.bar.fill")
                     }
                 

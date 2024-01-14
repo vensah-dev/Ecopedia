@@ -27,7 +27,7 @@ struct ProgressScreen: View {
                     
                     //Calculator
                     NavigationLink(){
-                        CalculatorView()
+                        CalculatorView(dataManager: dataManager)
                     }label:{
                         Image("Calculator")
                             .resizable()
@@ -37,8 +37,8 @@ struct ProgressScreen: View {
                     }
                     
                     //Review
-                    Button(){
-                        print("Review")
+                    NavigationLink(){
+                        ReviewView(dataManager: dataManager)
                     }label:{
                         Image("Review")
                             .resizable()
@@ -47,24 +47,18 @@ struct ProgressScreen: View {
 
                     }
                     
-
                     //Challenges
                     CompletedChallengesWidget()
-
                     
                     Spacer(minLength: 180)
-
                 }
                 .padding(.top, 15)
                 .padding(.horizontal, 20)
-
             }
             .navigationTitle("Progress")
             .toolbar{
                 ProfileIcon(dataManager: dataManager)
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .trailing)
-            .padding(.bottom, -100)
         }
     }
 }

@@ -56,20 +56,7 @@ struct ChallengeDetailView: View {
                 Section(header: Text("Variants")){
                     ForEach(dataManager.Challenges.indices, id: \.self){ index in
                         if(dataManager.Challenges[index].title == challenge.title){
-                            NavigationLink {
-                                ChallengeDetailView(dataManager: dataManager, challenge: $dataManager.Challenges[index])
-                            } label: {
-                                VStack(alignment: .leading){
-                                    Text(dataManager.Challenges[index].title)
-                                        .foregroundColor(Color("green"))
-                                        .bold()
-                                    
-                                    Text(dataManager.Challenges[index].difficulty)
-                                        .multilineTextAlignment(.leading)
-                                        .foregroundColor(.secondary)
-                                }
-                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-                            }
+                            ChallengesListItem(dataManager: dataManager, index: index)
                         }
                     }
                 }

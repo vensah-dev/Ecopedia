@@ -36,17 +36,17 @@ struct ProfileData: Codable{
     
 }
 
-struct CalculatorData{
+struct CalculatorData: Codable{
     var id = UUID()
 
     var ElectrictyBill: String = ""
-    var GasBill: String
+    var GasBill: String = ""
     
-    var carMileage: String
-    var FlightsUnder4: String
-    var FlightsOver4: String
+    var carMileage: String = ""
+    var FlightsUnder4: String = ""
+    var FlightsOver4: String = ""
     
-    var recycleAluminium: Bool
-    var recyclePaper: Bool
+    var recycleAluminium: Bool = false
+    var recyclePaper: Bool = false
     
 }

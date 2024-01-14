@@ -10,6 +10,8 @@ import SwiftUI
 
 class DataManager: ObservableObject {
     
+    @Published public var scoreData: CalculatorData = CalculatorData()
+    
     @Published public var Suggestions: [Suggestion] = [
         Suggestion(
             title: "Reduce Energy Usage",
@@ -388,6 +390,61 @@ class DataManager: ObservableObject {
                   - Collaborate with local schools or organizations for ongoing environmental education.
                   - Host webinars or speak at conferences about sustainable practices.
                   - Develop and implement an eco-friendly curriculum for schools.
+                  """
+        ),
+        // Challenge 11: Metal Recycling
+        Challenge(title: "Metal Recycling", difficulty: "Beginner",
+                  description:
+                  """
+                  - Collect and separate metal items from your household waste.
+                  - Find a local metal recycling facility and drop off the collected items.
+                  - Educate yourself about the types of metal that can be recycled.
+                  """
+        ),
+        
+        Challenge(title: "Metal Recycling", difficulty: "Intermediate",
+                  description:
+                  """
+                  - Encourage friends and family to participate in metal recycling.
+                  - Investigate opportunities for community metal recycling events.
+                  - Explore creative ways to repurpose metal items before recycling.
+                  """
+        ),
+        
+        Challenge(title: "Metal Recycling", difficulty: "Advanced",
+                  description:
+                  """
+                  - Implement a metal recycling program at your workplace or community center.
+                  - Collaborate with local businesses to promote and expand metal recycling efforts.
+                  - Research and advocate for policies that support metal recycling initiatives.
+                  """
+        ),
+        
+        // Challenge 12: Paper Recycling
+        Challenge(title: "Paper Recycling", difficulty: "Beginner",
+                  description:
+                  """
+                  - Establish a designated bin for paper recycling in your home.
+                  - Learn about the types of paper that can and cannot be recycled.
+                  - Take newspapers, magazines, and cardboard to a local recycling center.
+                  """
+        ),
+        
+        Challenge(title: "Paper Recycling", difficulty: "Intermediate",
+                  description:
+                  """
+                  - Reduce paper waste by opting for electronic bills and statements.
+                  - Encourage coworkers to participate in paper recycling at the office.
+                  - Experiment with creating homemade paper from recycled materials.
+                  """
+        ),
+        
+        Challenge(title: "Paper Recycling", difficulty: "Advanced",
+                  description:
+                  """
+                  - Initiate a paper recycling awareness campaign in your community.
+                  - Collaborate with schools to implement paper recycling programs.
+                  - Advocate for policies that promote sustainable paper production and recycling.
                   """
         ),
     ]{

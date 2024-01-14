@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
-    @ObservedObject var dataManager = DataManager()
+    @ObservedObject var dataManager: DataManager
     
     @State var targetScore: Int = 200
     @State var currentScore: Int = 496
@@ -20,10 +20,9 @@ struct HomeView: View {
                 Color(UIColor.systemGroupedBackground)
                     .ignoresSafeArea()
                     .navigationTitle("Home")
-                
                 GeometryReader{ G in
-                    List{
                     
+                    List{
                         HStack(spacing: 15){
                             FootprintWidget(title: "Current", value: currentScore)
                             FootprintWidget(title: "Target", value: targetScore)
@@ -38,32 +37,49 @@ struct HomeView: View {
                             .frame(width: G.size.width)
                             .listRowBackground(opacity(0))
                             .listRowSeparator(.hidden)
-
                         
-                        Section{
-                            NavigationLink{
-                                ResourceView(dataManager: dataManager)
-                            }label:{
-                                Label(dataManager.Suggestions[Int.random(in: 0..<dataManager.Suggestions.count)].title, systemImage: "lightbulb.2.fill")
+                        Section(header: Text("Recommended")){
+                            ForEach(randomSuggestions, id: \.id){ suggestion in
+                                NavigationLink {
+                                    SuggestionDetailView(suggestion: suggestion)
+                                } label: {
+                                    Text(suggestion.title)
+                                        .foregroundColor(Color("green"))
+                                        .multilineTextAlignment(.leading)
+                                        .bold()
+                                }
                             }
                             
-                            NavigationLink{
-                                CalculatorView()
-                            }label:{
-                                Label("Find out your crabon footprint score now!", systemImage: "list.clipboard.fill")
-                            }
-                            
-                            NavigationLink{
-                                Scan()
-                            }label:{
-                                Label("Find out if an item is recyclable using the dictionary!", systemImage: "camera.fill")
+                            ForEach(randomChallenges.indices, id: \.self){index in
+                                ChallengesListItem(dataManager: dataManager, index: index)
                             }
                         }
+                        
                     }
                     .scrollIndicators(.hidden)
                 }
             }
         }
+    }
+    
+    var randomChallenges: [Challenge]{
+        var returnVar: [Challenge] = []
+        
+        for _ in 0...3{
+            returnVar.append(dataManager.Challenges[Int.random(in: 0...dataManager.Challenges.count - 1)])
+        }
+        
+        return returnVar
+    }
+    
+    var randomSuggestions: [Suggestion]{
+        var returnVar: [Suggestion] = []
+        
+        for _ in 0...3{
+            returnVar.append(dataManager.Suggestions[Int.random(in: 0...dataManager.Suggestions.count - 1)])
+        }
+        
+        return returnVar
     }
 }
 
@@ -168,8 +184,4 @@ extension View {
     func innerShadow<S: Shape>(using shape: S, angle: Angle = .degrees(0), color: Color = .black, width: CGFloat = 6, blur: CGFloat = 6) -> some View {
         return self
     }
-}
-
-#Preview{
-    HomeView()
 }

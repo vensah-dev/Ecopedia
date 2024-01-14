@@ -224,3 +224,24 @@ struct FilterView: View {
     }
 }
 
+struct ChallengesListItem: View {
+    @StateObject var dataManager: DataManager
+    @State var index: Int
+    
+    var body: some View {
+        NavigationLink {
+            ChallengeDetailView(dataManager: dataManager, challenge: $dataManager.Challenges[index])
+        } label: {
+            VStack(alignment: .leading){
+                Text(dataManager.Challenges[index].title)
+                    .foregroundColor(Color("green"))
+                    .bold()
+                
+                Text(dataManager.Challenges[index].difficulty)
+                    .multilineTextAlignment(.leading)
+                    .foregroundColor(.secondary)
+            }
+        }
+    }
+}
+

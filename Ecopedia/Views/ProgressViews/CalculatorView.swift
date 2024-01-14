@@ -37,9 +37,11 @@ struct PlaceHolderWidget: View {
 }
 
 struct CalculatorView: View {
+    @StateObject var dataManager: DataManager
+
     var body: some View {
         NavigationView{
-            CalculatorFormView()
+            CalculatorFormView(dataManager: dataManager)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             .onTapGesture {
                 hideKeyboard()
@@ -116,6 +118,7 @@ struct ScoreView: View {
 }
 
 struct CalculatorFormView: View {
+    @StateObject var dataManager: DataManager
     @Environment(\.presentationMode) var presentationMode
     @State var dismiss: Bool = false
 
@@ -221,6 +224,7 @@ struct CalculatorFormView: View {
                 
                 Button(){
                     showScore = true
+                    
                 } label:{
                     ZStack{
                         VisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
@@ -247,8 +251,4 @@ struct CalculatorFormView: View {
         }
         return false
     }
-}
-
-#Preview{
-    CalculatorView()
 }
