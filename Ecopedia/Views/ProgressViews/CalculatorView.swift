@@ -189,7 +189,7 @@ struct CalculatorFormView: View {
                             Spacer()
                             
                             
-                            TextField("Enter car mileage", text: $flightsUnder4, onCommit:{hideKeyboard()})
+                            TextField("Enter flights taken under 4 hours", text: $flightsUnder4, onCommit:{hideKeyboard()})
                                 .keyboardType(.decimalPad)
                                 .frame(maxWidth: 150, alignment: .trailing)
                             
@@ -203,7 +203,7 @@ struct CalculatorFormView: View {
                             Spacer()
                             
                             
-                            TextField("Enter car mileage", text: $flightsOver4, onCommit:{hideKeyboard()})
+                            TextField("Enter flights taken over 4 hours", text: $flightsOver4, onCommit:{hideKeyboard()})
                                 .keyboardType(.decimalPad)
                                 .frame(maxWidth: 150, alignment: .trailing)
                             
