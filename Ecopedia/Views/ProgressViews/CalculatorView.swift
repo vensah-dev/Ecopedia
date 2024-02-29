@@ -216,7 +216,7 @@ struct CalculatorFormView: View {
                             .tint(.accentColor)
                         
                         
-                        Toggle("Do you recycle metal?", isOn: $recyclePaper)
+                        Toggle("Do you recycle paper?", isOn: $recyclePaper)
                             .font(.system(size: 20))
                             .tint(.accentColor)
                     }
